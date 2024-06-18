@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Employee</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'Employee.css' %}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <div class="container"> 
+            <aside>
+                <div class="top">
+                    <br><br>
+                    <div class="logo">
+                        <h6><span class="logoc">C<span class="material-icons">dark_mode</span>SMOS</span></h6>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons">close</span>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    <a href="{% url 'profile' %}">
+                        <span class="material-icons">person</span><h3>Profile</h3>
+                    </a>
+                    <a href="{% url 'dashboard' %}" >
+                        <span class="material-icons">dashboard</span><h3>Dashboard</h3>
+                    </a>
+                    <a href="{% url 'organisation' %}">
+                        <span class="material-icons">groups</span><h3>Organization</h3>
+                    </a>
+                    <a href="{% url 'employee' %}" class="active">
+                        <span class="material-icons">account_box</span><h3>Employee</h3>
+                    </a>
+                    <a href="{% url 'resume_match' %}">
+                        <span class="material-icons">groups</span><h3>Recruitment</h3>
+                    </a>
+                        </div>
+            </aside>
+            <!---------------end of aside---------------->
+                    
+                    <main>
+                        <div class="etable"><br>
+                            <h2>Employee</h2><br><br>
+                            <h1 class="logoc">Working Employee Details</h1><br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th> Employee Name </th>
+                                        <th> Employee PIN </th>
+                                        <th> Email </th>
+                                        <th> Contact </th>
+                                        <th> Department </th>
+                                        <th> Role </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for employee in etable_employee %}
+                                    <tr class="{% if forloop.counter > 4 %}hidden{% endif %}">
+                                   
+                                        <td>{{ employee.employee_name }}</td>
+                                        <td>{{ employee.employee_pin }}</td>
+                                        <td>{{ employee.email }}</td>
+                                        <td>{{ employee.contact }}</td>
+                                        <td>{{ employee.department }}</td>
+                                        <td>{{ employee.role }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                        <!---------End of table----------> 
+                        <div class="table2">
+                            <h1 class="logoc">Project List</h1><br>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Project Number</th>
+                                        <th>Total Employees</th>
+                                        <th>Manager</th>
+                                        <th>Progress</th>
+                                        <th> Start Date</th>
+                                        <th> End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for project in projects %}
+                                    <tr>
+                                        <td>{{ project.project_name }}</td>
+                                        <td>{{ project.project_no }}</td>
+                                        <td>{{ project.number_of_employees }}</td>
+                                        <td>{{ project.manager }}</td>
+                                        <td>{{ project.progress }}</td>
+                                        <td>2024-03-05</td>
+                                        <td>2024-03-30</td>
+                                    </tr>
+                                    <tr><td><button class="toggle-btn" id="toggle-btn{{ forloop.counter }}">view more..</button></td></tr>
+                                    <tr class="details" style="display: none;">
+                                        <td colspan="7">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Employee Name</th>
+                                                        <th>Employee No</th>
+                                                        <th>Role</th>
+                                                        <th>Joined Day</th>
+                                                        <th>Assignments</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ project.employee_name1 }}</td>
+                                                        <td>{{ project.employee_no1 }}</td>
+                                                        <td>{{ project.role_employee1 }}</td>
+                                                        <td>2024-03-06</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ project.employee_name2 }}</td>
+                                                        <td>{{ project.employee_no2 }}</td>
+                                                        <td>{{ project.role_employee2 }}</td>
+                                                        <td>2024-03-06</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ project.employee_name3 }}</td>
+                                                        <td>{{ project.employee_no3 }}</td>
+                                                        <td>{{ project.role_employee3 }}</td>
+                                                        <td>2024-03-06</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>{{ project.employee_name4 }}</td>
+                                                        <td>{{ project.employee_no4 }}</td>
+                                                        <td>{{ project.role_employee4 }}</td>
+                                                        <td>2024-03-06</td>
+                                                        <td>12</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table><br><br><br>
+                        </div>
+                      <!---------End of chart----------> 
+                    </main>
+                    <div class="right">
+                        <div class="top">
+                            <div class="profile">
+                                <div class="info">
+                                    <p>Hey,<b class="logoc"> Aastha</b></p>
+                                    <small class="text-muted">Admin</small>
+                                </div>
+                                <div class="profile-photo">
+                                    <span class="material-icons">account_circle</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="toparea">
+                            <div class="add"><br><br><br><br><br>
+                              <h1 class="logoc">Graph</h1>
+                              <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Graph">
+                            </div>
+                        </div>
+                        <!-----End of top------>
+                        <div class="rightbottom">
+                            <h1 class="logoc">Selected Candidates</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Full Name</th>
+                <th>Profession</th>
+                <th>Status</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for candidate in SelectedCandidates %}
+            <tr>
+                <td><span class="material-icons">circle</span></td>
+                <td>{{ candidate.fullname }}</td>
+                <td>{{ candidate.profession }}</td>
+                <td>{{ candidate.status }}</td>
+                <td>{{ candidate.score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+          <h1 class="logoc"> Add Candidates</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="id_fullname">Full Name:</label></td>
+                <td>{{ form.fullname }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_profession">Profession:</label></td>
+                <td>{{ form.profession }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_status">Status:</label></td>
+                <td>{{ form.status }}</td>
+            </tr>
+            <tr>
+                <td><label for="id_score">Score:</label></td>
+                <td>{{ form.score }}</td>
+            </tr>
+            
+        </table>
+        <button type="submit">Upload</button>
+    </form>
+    <br>
+             </div>
+                    </div> 
+                   
+        <script src="{% static 'Employee.js' %}"></script> 
+        </div>            
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Company</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'company.css' %}">
+    </head>
+    <body>
+        <div class="container"> 
+            <aside>
+                <div class="top">
+                    <br><br>
+                    <div class="logo">
+                        <h6><span class="logoc">C<span class="material-icons">dark_mode</span>SMOS</span></h6>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons">close</span>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    <a href="{% url 'company' %}" class="active">
+                        <span class="material-icons">person</span><h3>Home</h3>
+                    </a>
+                        </div>
+            </aside>
+            <!---------------end of aside---------------->
+            <main>
+                <br>
+                <div class="form-group">
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Sign out</button>
+                    </form>
+                </div>
+                <h2>Home</h2><br>
+                <div class="middle">
+                    <div class="hello">
+                        <div class="hello_img"></div>
+                        <div class="hello_text">
+                        <strong><p>Hello {{ user.get_full_name }}!</p></strong>
+                        <p>Thank you for creating your account on our website</p>
+                        </div>
+                    </div><br>
+                    <div class="middleone">
+                        <div class="insights">
+                       <strong><p>You Need to Hire</p></strong><br>
+                            <div class="hire1">
+                                <div class="hire">
+                                <h1>1</h1>
+                                        <h3 class="logoc">Content Designers</h3>
+                        </div>
+                                <small class="text-muted">(5 candidates)</small>
+                            </div>
+                            <div class="hire2">
+                                <div class="hire">
+                                <h1>2</h1>
+                                        <h3 class="logoc">Web Designer</h3></div>
+                                <small class="text-muted">(12 candidates)</small>
+                            </div>
+                            <div class="hire3">
+                                <div class="hire">
+                                <h1>3</h1>
+                                        <h3 class="logoc">Senior UI Designer</h3></div>
+                                <small class="text-muted">(1 candidates)</small>
+                            </div>
+                            <div class="hire4">
+                                <div class="hire">
+                                <h1>4</h1>
+                                        <h3 class="logoc">Marketing Managers</h3></div>
+                                <small class="text-muted">(10 candidates)</small>
+                            </div>
+                    </div>
+                    <div class="calender">
+                        <h3 class="logoc">Calendar</h3>
+                        <div class="monthly_calendar">
+                            <strong><p id="currentMonth"></p></strong>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Mon</th>
+                                        <th>Tue</th>
+                                        <th>Wed</th>
+                                        <th>Thu</th>
+                                        <th>Fri</th>
+                                        <th>Sat</th>
+                                        <th>Sun</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calendarDates">
+                                    <!-- Calendar dates will be added here dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end of calendar -->
+                </div><br>
+                <div class="bottom">
+                    <div class="ptable">
+                     <strong><h3>Recruitment progress</h3></strong>
+                    <div class="progresstable">
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Full Name</th>
+                                    <th>Profession</th>
+                                    <th>Status</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="material-icons">circle</span></td>
+                                    <td>Peter</td>
+                                    <td>Testing</td>
+                                    <td>Tech Interview</td>
+                                    <td>40%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="material-icons">circle</span></td>
+                                    <td>David</td>
+                                    <td>Testing</td>
+                                    <td>Tech Interview</td>
+                                    <td>50%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="material-icons">circle</span></td>
+                                    <td>Roshan</td>
+                                    <td>Java Developer</td>
+                                    <td>Tech Interview</td>
+                                    <td>40%</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="material-icons">circle</span></td>
+                                    <td>John</td>
+                                    <td>DevOp</td>
+                                    <td>Tech Interview</td>
+                                    <td>40.6%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="announcementpost">
+                    <button  id="hbtn" onclick="showAnnouncementForm()">Make an announcement</button>
+                    <div class="announcement-form">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Upload</button>
+                        </form>  
+                    </div>
+                    <div class="abottom">
+                        <div class="jobs">
+                        <h4>Past Announcements:</h4>
+                        <div class="logoc"> <body>
+                            <table border="1">
+                                <tbody>
+                                        {% for Announcementtable in announcementtable %}
+                                        <tr>
+                                            <td> <div class="headinga"><strong>{{ Announcementtable.title }}</strong></div></td></tr>
+                                            <tr><td><div class="headingb">{{ Announcementtable.position }}</div></td></tr>
+                                            <tr><td>{{ Announcementtable.location }}</td>
+                                            
+                                        <tr class="details" >
+                                            <td colspan="3">
+                                                <ul>
+                                                    <li>Event Date: {{ Announcementtable.event_date }}</li>
+                                                    <li>Expected Salary: {{ Announcementtable.expected_salary }}</li>
+                                                    <li>Job Type: {{ Announcementtable.get_job_type_display }}</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="5"><div class="horizontal-line"></div></td></tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                        </div>
+                    </div>
+                    </div>    
+                </div>
+                </div>
+               
+            </div>
+            </main>
+        </div>
+    <script src="{% static 'company.js' %}"></script>
+    </body>
+ </html>
+
+ 

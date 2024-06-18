@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+<meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible"content="IE=edge">
+ <meta name="viewport" content="width=device-width,initial-scale=1.0">
+ <title>Registration</title>
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+<link rel="stylesheet" href="{% static 'registration.css' %}">
+</head>
+<body>
+  <header class="header">
+    <a href="{% url 'index' %}" class="logo">C<span class="material-icons">dark_mode</span>OSMOS</a>
+    <nav class="nav">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'registration' %}">Register</a>
+  </header>
+  <section class="home">
+    <div class="content">
+      <h2>COSMOS</h2>
+      <p>Reshape Tommorrow's Teams Today<br>Experience the Future of HR with Our AI Edge</p>
+    </div>
+    <div class="wrapper-login">
+      <h2>REGISTRATION</h2>
+      <form action="{% url 'registration' %}" method="post">
+        {% csrf_token %}
+        <div class="input-box">
+          <span class="material-icons">account_circle</span>
+          <input type="text" id="fname" name="fname" required placeholder="First Name">
+        </div>
+        <div class="input-box">
+          <span class="material-icons">account_circle</span>
+          <input type="text" id="lname" name="lname" required placeholder="Last Name">
+        </div>
+        <div class="input-box">
+          <span class="material-icons">person</span>
+          <input type="text" id="username" name="username" required placeholder="Enter your Username">
+          <small id="username-error" class="error-message"></small>
+        </div>
+        <div class="input-box">
+          <span class="material-icons">mail</span>
+          <input type="email" id="umail" name="umail" required placeholder="Email">
+        </div>
+        <div class="input-box">
+          <span class="material-icons">lock</span>
+          <input type="password" id="upass" name="upass" required placeholder="Password">
+          <small id="password-error" class="error-message"></small>
+        </div>
+        <div class="register-link">
+          <p>Have an Account?<a href="{% url 'login' %}">  Go To Exsiting Account Now</a></p>
+        </div><br>
+       <button class="btn" id="registerbtn" type="submit">Registration</button>
+      </form>
+    </div>
+  </section>
+  <script src="{% static 'registration.js' %}"></script>
+</body>
+</html>

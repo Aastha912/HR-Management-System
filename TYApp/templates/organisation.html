@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Organization</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'organisation.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <aside>
+                <div class="top">
+                    <br><br>
+                    <div class="logo">
+                        <h6><span class="logoc">C<span class="material-icons">dark_mode</span>SMOS</span></h6>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons">close</span>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    <a href="{% url 'profile' %}">
+                        <span class="material-icons">person</span><h3>Profile</h3>
+                    </a>
+                    <a href="{% url 'dashboard' %}" >
+                        <span class="material-icons">dashboard</span><h3>Dashboard</h3>
+                    </a>
+                    <a href="{% url 'organisation' %}" class="active">
+                        <span class="material-icons">groups</span><h3>Organization</h3>
+                    </a>
+                    <a href="{% url 'employee' %}">
+                        <span class="material-icons">account_box</span><h3>Employee</h3>
+                    </a>
+                    <a href="{% url 'resume_match' %}">
+                        <span class="material-icons">groups</span><h3>Recruitment</h3>
+                    </a>
+                </div>
+            </aside>
+            <!---------------end of aside---------------->
+            <main>
+                <br><br><br><br><br>
+                <h2 class="logoc">Department</h2>
+                <br><br>
+                <div class="wrapper">
+                    <div class="uploaddocument">
+                    <span class="material-icons">drive_folder_upload</span><h1>Upload Documents</h1>
+                    </div>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Upload</button>
+                    </form>
+               
+                    {% if documents %}
+                        <h2>Uploaded Documents</h2>
+                        <ul>
+                            {% for document in documents %}
+                                <li><span class="material-icons">folder_open</span><h2>{{ document.name }} - <a href="{{ document.file.url }}">Download</a></h2></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </main>  
+                 <!-----End of main------>      
+            <div class="right">
+                <div class="top">
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey,<b class="logoc"> Aastha</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <span class="material-icons">account_circle</span>
+                        </div>
+                    </div>
+                </div>
+                  <!--End of top-->
+                 
+                 
+        </div>
+        <script src="{% static 'organisation.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+
+class Announcementtable(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='announcement_images/')
+    position = models.CharField(max_length=100)
+    qualification_experience = models.TextField()
+    job_description = models.TextField()
+    event_date = models.DateField()
+    expected_salary = models.CharField(max_length=50)
+    company_name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    JOB_TYPES = [
+        ('full_time', 'Full Time'),
+        ('fresher', 'Fresher'),
+        ('internship', 'Internship'),
+        ('part_time', 'Part Time'),
+        ('contract', 'Contract'),
+        ('temporary', 'Temporary'),
+    ]
+    job_type = models.CharField(max_length=20, choices=JOB_TYPES)
+
+    def __str__(self):
+        return self.title
+
+
+from .models import Announcementtable
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcementtable
+        fields = '__all__'
+
+admin.site.register(Announcementtable)
+
+def create_announcement(request):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('announcement_list')  # Replace with your list view URL pattern
+    else:
+        form = AnnouncementForm()
+
+    context = {'form': form}
+    return render(request, 'organization.html', context)
+
+from .forms import AnnouncementForm
+from .models import Announcementtable

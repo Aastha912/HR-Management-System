@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <html lang="en">
+    <head>
+      {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Login/Registration</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'index.css' %}">
+
+    </head>
+<body>
+    <header class="header">
+        <a href="{% url 'index' %}" class="logo">C<span class="material-icons">dark_mode</span>OSMOS</a>
+        <nav class="nav">
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'registration' %}">Register</a>
+        </nav>
+      </header>
+    </header>
+    <section class="home">
+      <div class="content">
+        <h2>COSMOS</h2>
+        <p>Reshape Tommorrow's Teams Today<br>Experience the Future of HR with Our AI Edge</p>
+        <a href="{% url 'registration' %}">Get Strated</a>
+      </div>
+    </section>
+    <script src="{% static 'index.js' %}"></script>
+  </body>
+  </html>

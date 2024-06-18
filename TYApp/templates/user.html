@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>User Profile</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'user.css' %}">
+    </head>
+    <body>
+        <header class="header">
+            <nav class="nav">
+                <button id="login-button" >Apply</button>
+                <div id="login-box" class="login-box-hidden">
+                    <div class="close" id="close-btn">
+                    <h1 class="new">Apply for a job</h1>
+                    <form action="{% url 'user' %}" method="post">
+                        <table>
+                        <tr>   
+                        <td><label>Full name</label></td>
+                        <td><input type="text" id="fname" class="firstname" /></td>
+                        </tr>
+                        <tr>
+                        <td><label>Email address</label></td>
+                        <td><input type="email" id="uemail"/></td>
+                        </tr>
+                        <tr>
+                        <td><label>Mobile</label></td>
+                        <td><input type="number" id="tele" /></td>
+                        </tr>
+                        <tr>
+                        <td><label>Remark</label></td>
+                        <td><textarea class="form-control" id="remark" rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                        <td><label>Upload CV</label></td>
+                        <td><input class="form-control" id="formFile" type="file" /></td>
+                        </tr>
+                        <tr><td><div class="small_text-muted "><p>Upload your CV/Resume<br> other relevant file.<br> Max filesize 50 MB</p></div></td></tr>
+                    </table>
+                    <button type="submit" class="btn" id="btn">Send application</button>
+                        </form>
+                    <button id="close-button">Close</button>
+                </div>
+            </nav>
+          </header>
+        <div class="container"> 
+            <aside>
+                <div class="top">
+                    <br><br>
+                    <div class="logo">
+                        <h6><span class="logoc">C<span class="material-icons">dark_mode</span>SMOS</span></h6>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons">close</span>
+                    </div>
+                </div><br><br>
+                <div class="sidebar">
+                <div class="middle">
+                <form action="{% url 'profile' %}">
+                    <div class="group">
+                        <span class="material-icons">account_circle</span>
+                        <table>
+                            <tr class="even">
+                              <td>{{ user.get_full_name }}</td>
+                            </tr>
+                            <tr>
+                              <td>User</td>
+                            </tr>
+                          </table>
+                </div><br>
+                <div class="horizontal-line"></div><br>
+                <table>
+                    <tr>
+                        <td>Email Address:</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>{{ user.username }}</td>
+                      </tr>
+                    <tr>
+                        <td>Joined Date:</td>
+                        <td>{{ user.date_joined }}</td>
+                    </tr>
+                </table>
+                    <!-- Add other fields here -->
+                    <div class="form-group">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Sign out</button>
+                        </form>
+                    </div>
+                </form>
+            </div><br><br>
+            <div class="bottom">
+                <div class="img1">
+             
+                </div>
+            </div>
+                        </div>
+            </aside>
+            <!---------------end of aside---------------->
+            <main>
+                <div class="searchforjob">
+                    <br><br><br><br><br>
+                    <div class="hello">
+                        <strong>Hello {{ user.get_full_name }}!</strong><br><br>
+                        <p>Thank you for creating your account on our website</p>
+                    </div><br>
+                    <div class="resume">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'user' %}">
+                        {% csrf_token %}
+                        <h1>Smart Screening</h1>
+                        <strong><p>(Identify the categories where your qualifications best align, helping you focus your applications on roles with a higher chance of success.)</p></strong><br>
+                        {% if error %}
+                            <p style="color: pink;">{{ error }}</p>
+                        {% endif %}
+                        <div class="res">
+                        <input type="file" name="resume_file" accept=".txt, .pdf" required><br>
+                        <button type="submit" id="upload">Upload Resume</button>
+                        </div>
+                    </form>
+                    {% if category_name %}
+                        <h2 class="logoc">Result</h2>
+                        <h3>Predicted Category: {{ category_name }}</h3><br>
+                    {% else %}
+                        <p>No prediction available.</p>
+                    {% endif %}
+                </div>
+                <div class="insights">
+                    <strong><p>You Need to Hire</p></strong><br>
+                         <div class="hire1">
+                             <div class="hire">
+                                     <h3>Content Designers</h3>
+                     </div>
+                             <small class="text-muted">(5 candidates)</small>
+                         </div>
+                         <div class="hire2">
+                             <div class="hire">
+                                     <h3>Web Designer</h3></div>
+                             <small class="text-muted">(12 candidates)</small>
+                         </div>
+                         <div class="hire3">
+                             <div class="hire">
+                                     <h3>Senior UI Designer</h3></div>
+                             <small class="text-muted">(1 candidates)</small>
+                         </div>
+                         <div class="hire4">
+                             <div class="hire">
+                                     <h3>Marketing Managers</h3></div>
+                             <small class="text-muted">(10 candidates)</small>
+                         </div>
+                 </div>
+                </div>
+            </main>       
+            <div class="right"><br><br><br><br><br><br>
+                <div class="jobsearch">
+                    <div class="input-group">
+                       <h1>Job Vacany</h1>
+                      </div>
+                </div>  
+                <div class="jobs">
+                    <div class="logoc"> <body>
+                        <table border="1">
+                            <tbody>
+                                {% for Announcementtable in announcementtable %}
+                                <tr>
+                                    <td> <div class="headinga"><strong>{{ Announcementtable.title }}</strong></div></td></tr>
+                                    <tr><td><div class="headingb">{{ Announcementtable.position }}</div></td></tr>
+                                    <tr><td>{{ Announcementtable.location }}</td>
+                                    <td><button class="toggle-btn" id="toggle-btn{{ forloop.counter }}">view more..</button></td></tr>
+                                <tr class="details" style="display: none;">
+                                    <td colspan="3">
+                                        <ul>
+                                            <li>Event Date: {{ Announcementtable.event_date }}</li>
+                                            <li>Expected Salary: {{ Announcementtable.expected_salary }}</li>
+                                            <li>Job Type: {{ Announcementtable.get_job_type_display }}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr><td colspan="5"><div class="horizontal-line"></div></td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+             <div>
+                   </div> 
+            </div>
+            <script src="{% static 'user.js' %}"></script>
+    </body>
+ </html>
+
+ 

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+ <html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible"content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Profile</title>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'profile.css' %}">
+    </head>
+    <body>
+        <div class="container"> 
+            <aside>
+                <div class="top">
+                    <br><br>
+                    <div class="logo">
+                        <h6><span class="logoc">C<span class="material-icons">dark_mode</span>SMOS</span></h6>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons">close</span>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    <a href="{% url 'profile' %}" class="active">
+                        <span class="material-icons">person</span><h3>Profile</h3>
+                    </a>
+                    <a href="{% url 'dashboard' %}">
+                        <span class="material-icons">dashboard</span><h3>Dashboard</h3>
+                    </a>
+                    <a href="{% url 'organisation' %}">
+                        <span class="material-icons">groups</span><h3>Organization</h3>
+                    </a>
+                    <a href="{% url 'employee' %}">
+                        <span class="material-icons">account_box</span><h3>Employee</h3>
+                    </a>
+                    <a href="{% url 'resume_match' %}">
+                        <span class="material-icons">groups</span><h3>Recruitment</h3>
+                    </a>
+                        </div>
+            </aside>
+            <!---------------end of aside---------------->
+            <main>
+                <br><br><br>
+                <h2>Profile</h2><br><br>
+                <div class="middle">
+                <form action="{% url 'profile' %}">
+                    <div class="group">
+                        <span class="material-icons">account_circle</span>
+                        <table>
+                            <tr class="even">
+                              <td>{{ user.get_full_name }}</td>
+                            </tr>
+                            <tr>
+                              <td>Admin</td>
+                            </tr>
+                          </table>
+                </div><br>
+                <div class="horizontal-line"></div><br>
+                <table>
+                    <tr>
+                        <td>Email Address:</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td>{{ user.username }}</td>
+                      </tr>
+                    <tr>
+                        <td>Staff Status:</td>
+                        <td>
+                            {% if user.is_staff %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Superuser Status:</td>
+                        <td>
+                            {% if user.is_superuser %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Login Time:</td>
+                        <td>{{ user.last_login }}</td>
+                    </tr>
+                    <tr>
+                        <td>Joined Date:</td>
+                        <td>{{ user.date_joined }}</td>
+                    </tr>
+                    <tr>
+                        <td>Number of Logins:</td>
+                        <td>{{ user.user_permissions.count }}</td>
+                    </tr>
+                </table>
+                    <!-- Add other fields here -->
+                    <div class="form-group">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Sign out</button>
+                        </form>
+                    </div>
+                </form>
+            </div>
+            </main>
+            </div>
+            <script src="{% static 'profile.js' %}"></script>
+    </body>
+ </html>
+
+ 
